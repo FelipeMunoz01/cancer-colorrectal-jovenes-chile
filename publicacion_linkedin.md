@@ -1,5 +1,7 @@
-Este año se ha hablado harto del aumento de cáncer colorrectal en personas jóvenes en
-Chile. Me llamó la atención y quise revisarlo con datos propios, no solo con la noticia.
+Hace un tiempo vi una noticia que hablaba del aumento del cáncer de colon en personas
+menores de 50 años, y de otros cánceres relacionados, en Chile. Me quedó dando vueltas y
+terminé haciendo lo que suelo hacer cuando algo así me llama la atención: revisarlo con
+datos, no quedarme solo con el titular.
 
 Usé el registro público de egresos hospitalarios GRD (DEIS/MINSAL), 2019 a 2024, y filtré
 las hospitalizaciones con cáncer colorrectal como diagnóstico principal en personas de 50
@@ -16,7 +18,8 @@ o menos.
 
 El resultado: entre 2019 y 2024, el cáncer invasor subió 34% mientras los diagnósticos de
 pólipos y carcinoma in situ cayeron 32%. Si el aumento fuera por mejor pesquisa, ambas
-categorías deberían subir juntas. Pasa lo contrario.
+categorías deberían subir juntas. Pasa lo contrario, así que la noticia tenía base real: no
+es que estemos pesquisando mejor, es que hay más cáncer apareciendo.
 
 Otros hallazgos del análisis:
 
