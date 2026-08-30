@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.claude/
+.ipynb_checkpoints/
+
+# Fuentes GRD crudas: varios GB por año, se descargan del portal público del DEIS.
+bases de datos GRD/
+data/por_anio/
+
+# Población INE cruda ya agregada al parquet nacional que sí se conserva.
+data/poblacion_comuna_edad_genero.parquet

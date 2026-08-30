@@ -1,0 +1,13 @@
+# Para reproducir el análisis (notebook)
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.9
+plotly>=5.20
+pyarrow>=15.0
+jupyter>=1.0
+
+# Solo para regenerar los parquet con src/extract_data.py
+duckdb>=1.0
+
+# Solo para generar los GIFs animados (src/generar_gifs.py)
+pillow>=10.0
