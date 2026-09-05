@@ -48,7 +48,7 @@ def gif_02_indice_comparado():
         colores=["#FF6B6B", "#6C5CE7"],
         decimales=0,
         sombrear_gap=True,
-        etiqueta_gap="crece casi el doble\nde rápido en jóvenes",
+        etiqueta_gap="crece más rápido\nen personas ≤50 años",
     )
 
 

@@ -23,8 +23,8 @@ es que estemos pesquisando mejor, es que hay más cáncer apareciendo.
 
 Otros hallazgos del análisis:
 
-→ La tasa de cáncer colorrectal por 100.000 habitantes subió en todas las edades, pero casi
-el doble de rápido en personas de 50 años o menos que en el resto (2019-2024).
+→ La tasa de cáncer colorrectal por 100.000 habitantes subió en todas las edades, pero más
+rápido en personas de 50 años o menos que en el resto (2019-2024).
 
 → Los pacientes jóvenes llegan más por urgencia y con más tumores en el recto, dos señales
 de diagnóstico más tardío. En Chile el tamizaje poblacional para este cáncer parte a los 50
