@@ -34,6 +34,8 @@ años, así que antes de eso casi todo depende de que aparezcan síntomas.
 30. El fenómeno es un corrimiento hacia la última década antes de los 50, más que una
 explosión en gente muy joven.
 
+Datos: registro GRD público de FONASA (datosabiertos.fonasa.cl).
+
 Dejé todo el análisis, el código y las visualizaciones en GitHub: [enlace]
 
 #DataScience #Python #SaludPublica #Chile #CancerColorrectal

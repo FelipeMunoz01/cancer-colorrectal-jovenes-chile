@@ -49,16 +49,20 @@ tamizaje.
 
 ## Qué es y qué no es este dataset
 
-GRD es un registro de **egresos hospitalarios**, no un registro poblacional de cáncer:
+GRD es un registro de **egresos hospitalarios y cirugía mayor ambulatoria (CMA)**
+publicado por FONASA, no un registro poblacional de cáncer:
 
-- Solo capta personas **hospitalizadas** con ese diagnóstico principal. Alguien
-  diagnosticado y tratado de forma ambulatoria no aparece.
-- Cubre mayoritariamente la **red pública (FONASA)**: el 99% de las admisiones extraídas
-  son de esa previsión. No representa a la población atendida 100% en el sistema privado.
-- El número de hospitales que reportan al sistema **creció de 59 a 67** entre 2019 y 2024
-  (+13,6%), lo que por sí solo ya explicaría parte de cualquier aumento en el conteo bruto
-  de casos. Por eso el análisis usa tasas por 100.000 habitantes (con población proyectada
-  del INE como denominador), no solo conteos.
+- Solo capta personas con un episodio de hospitalización o CMA con ese diagnóstico
+  principal. Alguien diagnosticado y tratado solo de forma ambulatoria (consulta,
+  quimioterapia ambulatoria sin cirugía) no aparece.
+- Cubre los hospitales financiados por el mecanismo de pago GRD (72 en total según
+  FONASA): la red pública y clínicas en convenio, no el 100% del sistema privado. Dentro
+  de esos hospitales, el 99% de las admisiones extraídas tienen FONASA como previsión de
+  salud del paciente.
+- El número de esos hospitales que reportaron casos de cáncer colorrectal **creció de 59 a
+  67** entre 2019 y 2024 (+13,6%), lo que por sí solo ya explicaría parte de cualquier
+  aumento en el conteo bruto de casos. Por eso el análisis usa tasas por 100.000
+  habitantes (con población proyectada del INE como denominador), no solo conteos.
 - El identificador de paciente encriptado sirve para deduplicar dentro de un mismo año, no
   para seguir a una misma persona entre años.
 
@@ -116,8 +120,9 @@ del INE (~11 MB) tampoco se incluye: `src/extraer_poblacion.py` lo descarga solo
 
 ## Fuentes de datos
 
-- **GRD Público 2019-2024**, FONASA (Fondo Nacional de Salud), portal de datos abiertos,
-  egresos hospitalarios a nivel nacional.
+- **GRD Público 2019-2024**, FONASA (Fondo Nacional de Salud), egresos hospitalarios y
+  cirugía mayor ambulatoria (CMA) de los 72 hospitales financiados por el mecanismo de
+  pago GRD. Fuente: [datosabiertos.fonasa.cl](https://datosabiertos.fonasa.cl).
 - **Estimaciones y proyecciones de población, base 2017**, Instituto Nacional de
   Estadísticas (INE), cuadro comunal por edad simple y año, agregado a nivel nacional en
   `src/extraer_poblacion.py`.

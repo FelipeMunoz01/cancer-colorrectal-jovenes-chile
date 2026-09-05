@@ -35,12 +35,14 @@ no una comorbilidad mencionada de paso entre los 34 diagnósticos secundarios
 (alguien hospitalizado por una fractura que además tiene antecedente de
 cáncer de colon no debería contar como un caso "nuevo" en el análisis).
 
-GRD es un registro de EGRESOS HOSPITALARIOS, no un registro poblacional de
-cáncer: mide personas hospitalizadas con ese diagnóstico principal, no
-incidencia real (alguien con diagnóstico y tratamiento ambulatorio, sin
-hospitalización, no aparece). Además cubre mayoritariamente la red pública
-(FONASA) y clínicas en convenio, no censa el 100% de las atenciones privadas.
-Esto se documenta en el README como limitación central del análisis.
+GRD es un registro de EGRESOS HOSPITALARIOS Y CIRUGÍA MAYOR AMBULATORIA (CMA),
+publicado por FONASA, no un registro poblacional de cáncer: mide personas con
+un episodio de hospitalización o CMA con ese diagnóstico principal, no
+incidencia real (alguien con diagnóstico y tratamiento puramente ambulatorio,
+sin cirugía, no aparece). Además cubre los hospitales financiados por el
+mecanismo de pago GRD (72 en total), no censa el 100% de las atenciones
+privadas. Esto se documenta en el README como limitación central del
+análisis. Fuente: https://datosabiertos.fonasa.cl
 """
 
 import os
