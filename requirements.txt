@@ -9,5 +9,8 @@ jupyter>=1.0
 # Solo para regenerar los parquet con src/extract_data.py
 duckdb>=1.0
 
+# Solo para descargar y leer el Excel de población del INE (src/extraer_poblacion.py)
+openpyxl>=3.1
+
 # Solo para generar los GIFs animados (src/generar_gifs.py)
 pillow>=10.0

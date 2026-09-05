@@ -58,7 +58,7 @@ RUTAS_BASE = [
 DIR_POR_ANIO = f"{PROYECTO}/data/por_anio"
 SALIDA = f"{PROYECTO}/data/crc_admisiones.parquet"
 
-# encoding detectado por archivo: el DEIS cambió de formato entre años
+# encoding detectado por archivo: FONASA cambió de formato entre años
 # (mismo hallazgo empírico que proyecto5/src/extract_data.py)
 ARCHIVOS = [
     ("GRD_PUBLICO_2019.txt", "utf-8", 2019),

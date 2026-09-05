@@ -2,7 +2,7 @@
 
 ![Tasa de cáncer colorrectal en jóvenes, 2019-2024](figuras/animadas/gif_01_tasa_jovenes.gif)
 
-Análisis de los egresos hospitalarios públicos GRD de Chile (DEIS/MINSAL, 2019-2024) a raíz
+Análisis de los egresos hospitalarios públicos GRD de Chile (FONASA, 2019-2024) a raíz
 de las noticias recientes sobre el fuerte aumento del cáncer colorrectal en menores de 50
 años en Chile. El objetivo fue revisar esa alerta con datos propios: ¿la tasa de
 hospitalizaciones por cáncer colorrectal en personas de 50 años o menos sube más rápido que
@@ -70,9 +70,9 @@ GRD es un registro de **egresos hospitalarios**, no un registro poblacional de c
    ano (C21), carcinoma in situ (D01) o pólipos adenomatosos (D12.6). Estas cuatro
    categorías se guardan por separado: el análisis principal usa solo cáncer colorrectal
    invasor, y las otras tres sirven de contraste (ver el hallazgo principal).
-2. **Denominador poblacional**: proyecciones de población del INE por edad simple y año
-   (2019-2024), agregadas a nivel nacional, para calcular tasas por 100.000 habitantes en
-   vez de solo contar casos.
+2. **Denominador poblacional** (`src/extraer_poblacion.py`): descarga el cuadro comunal
+   oficial del INE (base 2017) y lo agrega a totales país por edad simple y año
+   (2019-2024), para calcular tasas por 100.000 habitantes en vez de solo contar casos.
 3. **Análisis** (`analisis_cancer_colorrectal_jovenes.ipynb`): tendencia de tasas,
    comparación de velocidad de crecimiento entre grupos etarios, perfil demográfico, forma
    de llegada al hospital, ubicación anatómica del tumor, letalidad intrahospitalaria, y la
@@ -103,19 +103,21 @@ pip install -r requirements.txt
 
 export GRD_DIR="/ruta/a/bases de datos GRD"
 python3 src/extract_data.py
+python3 src/extraer_poblacion.py
 python3 src/generar_figuras_estaticas.py
 python3 src/generar_gifs.py
 ```
 
 Los archivos GRD crudos (varios GB por año) se descargan del
-[portal de datos abiertos del DEIS/MINSAL](https://deis.minsal.cl/) y no se incluyen en
+[portal de datos abiertos de FONASA](https://datosabiertos.fonasa.cl/) y no se incluyen en
 este repositorio. El parquet ya procesado (`data/crc_admisiones.parquet`, ~500 KB) sí se
-incluye, para que el notebook se pueda ejecutar sin descargar nada.
+incluye, para que el notebook se pueda ejecutar sin descargar nada. El cuadro de población
+del INE (~11 MB) tampoco se incluye: `src/extraer_poblacion.py` lo descarga solo.
 
 ## Fuentes de datos
 
-- **GRD Público 2019-2024**, DEIS/MINSAL (Departamento de Estadísticas e Información de
-  Salud), egresos hospitalarios a nivel nacional.
-- **Proyecciones de población por edad y año**, Instituto Nacional de Estadísticas (INE),
-  base Censo 2017, vía el dataset agregado de
-  [bastianolea/censo_proyecciones_poblacion](https://github.com/bastianolea/censo_proyecciones_poblacion).
+- **GRD Público 2019-2024**, FONASA (Fondo Nacional de Salud), portal de datos abiertos,
+  egresos hospitalarios a nivel nacional.
+- **Estimaciones y proyecciones de población, base 2017**, Instituto Nacional de
+  Estadísticas (INE), cuadro comunal por edad simple y año, agregado a nivel nacional en
+  `src/extraer_poblacion.py`.

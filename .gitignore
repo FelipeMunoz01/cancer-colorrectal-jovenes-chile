@@ -5,9 +5,10 @@ __pycache__/
 .claude/
 .ipynb_checkpoints/
 
-# Fuentes GRD crudas: varios GB por año, se descargan del portal público del DEIS.
+# Fuentes GRD crudas: varios GB por año, se descargan del portal de datos abiertos de FONASA.
 bases de datos GRD/
 data/por_anio/
 
-# Población INE cruda ya agregada al parquet nacional que sí se conserva.
-data/poblacion_comuna_edad_genero.parquet
+# Excel comunal crudo del INE (~11 MB): src/extraer_poblacion.py lo vuelve a
+# descargar solo. Se conserva el parquet nacional ya agregado.
+data/estimaciones-y-proyecciones-2002-2035-comunas.xlsx

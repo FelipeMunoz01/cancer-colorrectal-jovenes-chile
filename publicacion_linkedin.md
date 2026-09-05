@@ -3,7 +3,7 @@ menores de 50 años, y de otros cánceres relacionados, en Chile. Me quedó dand
 terminé haciendo lo que suelo hacer cuando algo así me llama la atención: revisarlo con
 datos, no quedarme solo con el titular.
 
-Usé el registro público de egresos hospitalarios GRD (DEIS/MINSAL), 2019 a 2024, y filtré
+Usé el registro público de egresos hospitalarios GRD (FONASA), 2019 a 2024, y filtré
 las hospitalizaciones con cáncer colorrectal como diagnóstico principal en personas de 50
 años o menos.
 
