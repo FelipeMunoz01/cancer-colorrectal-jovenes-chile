@@ -74,6 +74,18 @@ def por_subsitio(df):
     return crc(df).groupby("grupo_edad")["diagnostico1_categoria"].value_counts(normalize=True).unstack()
 
 
+def subsitio_por_anio(df):
+    """% de tumores en recto (C20) sobre el total colorrectal, por año y
+    grupo de edad. Sirve para ver si la composición colon/recto se mueve en
+    el tiempo, en vez de mirar solo la foto agregada de por_subsitio()."""
+    d = crc(df)
+    conteo = d.groupby(["anio", "grupo_edad", "diagnostico1_categoria"]).size().reset_index(name="n")
+    conteo["total"] = conteo.groupby(["anio", "grupo_edad"])["n"].transform("sum")
+    conteo["pct"] = conteo["n"] / conteo["total"] * 100
+    recto = conteo[conteo.diagnostico1_categoria == "C20"]
+    return recto.pivot(index="anio", columns="grupo_edad", values="pct")
+
+
 def por_tipo_ingreso(df):
     d = crc(df)
     d = d[d.tipo_ingreso.isin(["URGENCIA", "PROGRAMADA"])]

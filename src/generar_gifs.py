@@ -1,12 +1,14 @@
 """Genera los GIFs animados (estilo oscuro, para LinkedIn) a partir de los
-mismos números calculados en analisis_utils. Reutiliza animacion_barras.py
-(módulo copiado de proyecto3, sin cambios)."""
+mismos números calculados en analisis_utils. Usa animacion_lineas.py: los
+cuatro GIFs son gráficos de línea en el tiempo (no barras), porque son series
+temporales cortas y lo que importa es la forma de la curva y la brecha entre
+grupos, no un ranking estático."""
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import analisis_utils as au
-from animacion_barras import crear_gif_barras_horizontal, crear_gif_barras_vertical
+from animacion_lineas import crear_gif_linea_tiempo, crear_gif_lineas_comparadas
 
 PROYECTO = str(Path(__file__).resolve().parent.parent)
 SALIDA = f"{PROYECTO}/figuras/animadas"
@@ -18,72 +20,76 @@ tasas = au.tasas_por_anio(df, pop)
 
 def gif_01_tasa_jovenes():
     sub = tasas[tasas.grupo_edad == "menor o igual a 50"].sort_values("anio")
-    crear_gif_barras_vertical(
-        labels=[str(a) for a in sub.anio],
-        values=sub.tasa_por_100k.values,
+    crear_gif_linea_tiempo(
+        x=sub.anio.values,
+        y=sub.tasa_por_100k.values,
         titulo="Cáncer colorrectal en personas ≤50 años\ncasos por 100.000 habitantes, Chile",
         ylabel="casos por 100.000 habitantes",
         salida=f"{SALIDA}/gif_01_tasa_jovenes.gif",
-        colors=["#6C5CE7"] * 5 + ["#00D2B4"],
-        formato_valor="{:.1f}",
+        color="#FF6B6B",
+        decimales=1,
+        zona_sombra=(2019.5, 2020.5),
+        etiqueta_sombra="2020: caída de hospitalizaciones electivas por la pandemia",
     )
 
 
-def gif_02_crecimiento_comparado():
-    resumen = au.resumen_crecimiento(tasas)
-    resumen = resumen.set_index("grupo_edad")
-    crear_gif_barras_horizontal(
-        labels=["Personas de 50 años o menos", "Personas mayores de 50 años"],
-        values=[
-            100 * resumen.loc["menor o igual a 50", "cambio_total_2019_2024"],
-            100 * resumen.loc["mayor a 50", "cambio_total_2019_2024"],
-        ],
-        titulo="Crecimiento de la tasa de cáncer colorrectal\n2019 -> 2024",
-        xlabel="% de aumento en la tasa por 100.000 habitantes",
-        salida=f"{SALIDA}/gif_02_crecimiento_comparado.gif",
-        color_inicio="#FF6B6B", color_fin="#6C5CE7",
+def gif_02_indice_comparado():
+    idx = au.indice_base_2019(tasas)
+    piv = idx.pivot(index="anio", columns="grupo_edad", values="indice")
+    crear_gif_lineas_comparadas(
+        x=piv.index.values,
+        series={
+            "Personas ≤50 años": piv["menor o igual a 50"].values,
+            "Personas >50 años": piv["mayor a 50"].values,
+        },
+        titulo="Velocidad de crecimiento de la tasa de cáncer colorrectal\níndice 2019 = 100",
+        ylabel="índice (2019 = 100)",
+        salida=f"{SALIDA}/gif_02_indice_comparado.gif",
+        colores=["#FF6B6B", "#6C5CE7"],
+        decimales=0,
+        sombrear_gap=True,
+        etiqueta_gap="crece casi el doble\nde rápido en jóvenes",
     )
 
 
-def gif_03_ubicacion_tumor():
-    sub = au.por_subsitio(df) * 100
-    crear_gif_barras_horizontal(
-        labels=["Recto - personas ≤50 años", "Recto - personas mayores de 50",
-                "Colon - personas ≤50 años", "Colon - personas mayores de 50"],
-        values=[
-            sub.loc["menor o igual a 50", "C20"],
-            sub.loc["mayor a 50", "C20"],
-            sub.loc["menor o igual a 50", "C18"],
-            sub.loc["mayor a 50", "C18"],
-        ],
-        titulo="¿Dónde aparece el tumor?",
-        xlabel="% de las admisiones por cáncer colorrectal",
+def gif_03_ubicacion_tumor_tiempo():
+    sub = au.subsitio_por_anio(df)
+    crear_gif_lineas_comparadas(
+        x=sub.index.values,
+        series={
+            "Recto, ≤50 años": sub["menor o igual a 50"].values,
+            "Recto, >50 años": sub["mayor a 50"].values,
+        },
+        titulo="¿Dónde aparece el tumor?\n% de casos ubicados en el recto (vs. colon)",
+        ylabel="% de las admisiones por cáncer colorrectal",
         salida=f"{SALIDA}/gif_03_ubicacion_tumor.gif",
-        color_inicio="#00D2B4", color_fin="#6C5CE7",
+        colores=["#FF6B6B", "#6C5CE7"],
+        sufijo="%",
+        decimales=0,
     )
 
 
 def gif_04_invasor_vs_pesquisa():
-    # el módulo de barras solo anima valores positivos creciendo desde 0, así
-    # que se grafica la MAGNITUD del cambio y el signo va en la etiqueta.
     comp = au.polipos_in_situ_vs_invasor_jovenes(df)
-    cambio_invasor = 100 * (comp["cancer_invasor"].iloc[-1] / comp["cancer_invasor"].iloc[0] - 1)
-    cambio_pesquisa = 100 * (comp["polipo_o_in_situ"].iloc[-1] / comp["polipo_o_in_situ"].iloc[0] - 1)
-    crear_gif_barras_vertical(
-        labels=[f"Cáncer invasor (C18-C20)\n{cambio_invasor:+.0f}%",
-                f"Pólipos / carcinoma in situ\n{cambio_pesquisa:+.0f}%"],
-        values=[abs(cambio_invasor), abs(cambio_pesquisa)],
-        titulo="En personas ≤50 años, 2019 -> 2024:\n¿qué diagnóstico aumentó?",
-        ylabel="magnitud del cambio (%)",
+    crear_gif_lineas_comparadas(
+        x=comp.index.values,
+        series={
+            "Cáncer invasor": comp["indice_cancer_invasor"].values,
+            "Pólipos / in situ": comp["indice_polipo_o_in_situ"].values,
+        },
+        titulo="En personas ≤50 años, 2019 -> 2024:\n¿mejor pesquisa o más cáncer?",
+        ylabel="índice (2019 = 100)",
         salida=f"{SALIDA}/gif_04_invasor_vs_pesquisa.gif",
-        colors=["#FF6B6B", "#00D2B4"],
-        formato_valor="{:.0f}%",
+        colores=["#FF6B6B", "#00D2B4"],
+        decimales=0,
+        sombrear_gap=True,
+        etiqueta_gap="si subieran juntas sería\nmejor pesquisa; no es el caso",
     )
 
 
 if __name__ == "__main__":
     gif_01_tasa_jovenes()
-    gif_02_crecimiento_comparado()
-    gif_03_ubicacion_tumor()
+    gif_02_indice_comparado()
+    gif_03_ubicacion_tumor_tiempo()
     gif_04_invasor_vs_pesquisa()
     print("GIFs guardados en", SALIDA)

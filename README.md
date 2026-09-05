@@ -44,7 +44,7 @@ tamizaje.
   mientras baja en el grupo mayor, pero con solo 11 a 29 muertes por año en el grupo joven:
   es una señal a seguir, no una conclusión firme con este tamaño de muestra.
 
-![¿Quién creció más rápido, 2019-2024?](figuras/animadas/gif_02_crecimiento_comparado.gif)
+![¿Quién creció más rápido, 2019-2024?](figuras/animadas/gif_02_indice_comparado.gif)
 ![Ubicación del tumor: colon vs. recto](figuras/animadas/gif_03_ubicacion_tumor.gif)
 
 ## Qué es y qué no es este dataset
